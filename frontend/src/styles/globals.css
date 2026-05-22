@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply box-border;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-nc-base text-nc-text-primary font-body antialiased;
+  background-image: radial-gradient(circle, #1e2733 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 0 0;
+}
+
+/* Hero scanline overlay */
+.hero-scanlines::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 212, 170, 0.03) 2px,
+    rgba(0, 212, 170, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glassmorphism cards */
+.glass-card {
+  @apply bg-nc-surface border border-nc-border backdrop-blur-sm;
+  background-color: rgba(15, 18, 23, 0.6);
+  border-color: rgba(30, 39, 51, 1);
+}
+
+.glass-card:hover {
+  @apply border-nc-border-active;
+  box-shadow: 0 0 20px rgba(0, 212, 170, 0.3);
+}
+
+/* Cut corner effect */
+.cut-corner {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+/* Neon glow */
+.neon-glow {
+  box-shadow: 0 0 20px rgba(0, 212, 170, 0.3);
+}
+
+.neon-glow-active {
+  box-shadow: 0 0 30px rgba(0, 212, 170, 0.6);
+}
+
+/* Terminal-style input */
+.terminal-input {
+  @apply bg-nc-elevated border border-nc-border text-nc-text-primary font-mono px-4 py-2;
+}
+
+.terminal-input:focus {
+  @apply outline-none border-nc-teal;
+  box-shadow: 0 0 15px rgba(0, 212, 170, 0.2);
+}
+
+/* Smooth button transitions */
+.btn-transition {
+  @apply transition-all duration-300 ease-out;
+}
+
+/* Animated underline for links */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #00d4aa;
+  transition: width 0.3s ease-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Counting animation support */
+.count-text {
+  counter-reset: num var(--num, 0);
+}
+
+.count-text::after {
+  content: counter(num);
+}
+
+/* Code snippet styling */
+code {
+  @apply text-nc-text-code font-mono text-sm;
+}
+
+pre {
+  @apply bg-nc-elevated border border-nc-border rounded px-4 py-3 overflow-x-auto;
+}
+
+/* Smooth scroll for sections */
+section {
+  @apply relative;
+}
+
+/* Responsive grid */
+@media (max-width: 768px) {
+  body {
+    background-size: 16px 16px;
+  }
+}
