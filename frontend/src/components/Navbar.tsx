@@ -32,9 +32,11 @@ export const Navbar: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             className="flex items-center gap-2 cursor-pointer group"
           >
-            <div className="w-8 h-8 rounded-full border-2 border-nc-teal flex items-center justify-center group-hover:animate-pulse-glow">
-              <div className="w-2 h-2 bg-nc-teal rounded-full" />
-            </div>
+            <img
+              src="/favicon.svg"
+              alt="Neuro Cortex logo"
+              className="w-8 h-8 rounded-full bg-nc-base p-1 group-hover:animate-pulse-glow"
+            />
             <span className="font-mono font-bold text-nc-teal text-lg hidden sm:inline">
               NEURO_CORTEX
             </span>
