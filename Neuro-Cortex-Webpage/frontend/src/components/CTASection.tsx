@@ -38,7 +38,7 @@ export const CTASection: React.FC<CTASectionProps> = ({ onRequestAccess }) => {
             }}
             whileTap={{ scale: 0.98 }}
             onClick={onRequestAccess}
-            className="mx-auto border-2 font-mono font-bold border-nc-teal bg-transparent px-10 py-4 text-sm font-bold uppercase tracking-[0.3em] text-nc-teal transition-all duration-300 hover:bg-nc-teal hover:text-nc-base"
+            className="mx-auto border-2 font-mono border-nc-teal bg-transparent px-10 py-4 text-sm font-bold uppercase tracking-[0.3em] text-nc-teal transition-all duration-300 hover:bg-nc-teal hover:text-nc-base"
           >
             Request Access
           </motion.button>

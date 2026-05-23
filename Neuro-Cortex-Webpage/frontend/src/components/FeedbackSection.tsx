@@ -16,9 +16,10 @@ export const FeedbackSection: React.FC = () => {
     }
   }, []);
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setSubmitted(true);
+    await submitToServer();
     setComment("");
     setRating(5);
     setPageSection("pentesting_lab");
@@ -26,6 +27,30 @@ export const FeedbackSection: React.FC = () => {
     setEmail("");
     setAppVersion("Web");
     setTimeout(() => setSubmitted(false), 3000);
+  };
+
+  const submitToServer = async () => {
+    try {
+      const resp = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_name: userName,
+          user_email: email,
+          rating,
+          comment,
+          page_section: pageSection,
+          app_version: appVersion,
+          device_info: deviceInfo,
+        }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        console.error("feedback submit failed", data);
+      }
+    } catch (err) {
+      console.error("feedback submit error", err);
+    }
   };
 
   return (

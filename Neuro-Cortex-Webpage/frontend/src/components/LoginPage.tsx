@@ -23,10 +23,29 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
     setError("");
     setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onSuccess();
-    }, 600);
+
+    (async () => {
+      try {
+        const resp = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+          setError(data?.error || "Login failed");
+          setSubmitted(false);
+          return;
+        }
+        // successful sign-in; proceed to desktop flow
+        setSubmitted(false);
+        onSuccess();
+      } catch (err) {
+        console.error("login error", err);
+        setError("Login failed");
+        setSubmitted(false);
+      }
+    })();
   };
 
   return (

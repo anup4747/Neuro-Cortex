@@ -34,20 +34,47 @@ export const AccessRequestModal: React.FC<AccessRequestModalProps> = ({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-      setUserName("");
-      setUserEmail("");
-      setCompanyName("");
-      setRequestType("beta_access");
-      setMessage("");
-      setExpectedUsage("personal_learning");
-      setTimeout(() => {
-        setSubmitted(false);
-        onClose();
-      }, 1200);
-    }, 600);
+    (async () => {
+      try {
+        const resp = await fetch("/api/request-access", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_name: userName,
+            user_email: userEmail,
+            company_name: companyName,
+            request_type: requestType,
+            expected_usage: expectedUsage,
+            message,
+            app_version: "Web",
+          }),
+        });
+
+        const data = await resp.json();
+        if (!resp.ok) {
+          console.error("request-access failed", data);
+          setSubmitting(false);
+          return;
+        }
+
+        setSubmitted(true);
+        setUserName("");
+        setUserEmail("");
+        setCompanyName("");
+        setRequestType("beta_access");
+        setMessage("");
+        setExpectedUsage("personal_learning");
+
+        setTimeout(() => {
+          setSubmitted(false);
+          onClose();
+        }, 1200);
+      } catch (err) {
+        console.error("request-access error", err);
+      } finally {
+        setSubmitting(false);
+      }
+    })();
   };
 
   if (!open) {
