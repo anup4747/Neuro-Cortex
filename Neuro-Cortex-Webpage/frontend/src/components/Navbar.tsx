@@ -1,18 +1,24 @@
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+interface NavbarProps {
+  onLogin?: () => void;
+  onRequestAccess?: () => void;
+}
 
 const navItems = ["Features", "Lab", "Threat Intel", "Architecture", "Contact"];
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC<NavbarProps> = ({ onLogin, onRequestAccess }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const handleScroll = () => {
-    setIsScrolled(window.scrollY > 50);
-  };
-
-  window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <motion.nav
@@ -27,7 +33,6 @@ export const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="flex items-center gap-2 cursor-pointer group"
@@ -42,32 +47,37 @@ export const Navbar: React.FC = () => {
             </span>
           </motion.div>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="nav-link font-mono text-sm text-nc-text-primary hover:text-nc-teal transition-colors"
-                whileHover={{ scale: 1.05 }}
-              >
-                {item}
-              </motion.a>
-            ))}
-          </div>
-
-          {/* CTA Button */}
-          <div className="hidden md:flex">
+          <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-center gap-8">
+              {navItems.map((item) => (
+                <motion.a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="nav-link font-mono text-sm text-nc-text-primary hover:text-nc-teal transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {item}
+                </motion.a>
+              ))}
+            </div>
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={onLogin}
+              className="px-5 py-2 border border-nc-border text-nc-text-primary font-mono font-semibold text-sm hover:border-nc-teal transition-all duration-300"
+            >
+              Login
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={onRequestAccess}
               className="px-6 py-2 border-2 border-nc-teal text-nc-teal font-mono font-bold text-sm hover:bg-nc-teal hover:text-nc-base transition-all duration-300 neon-glow"
             >
-              REQUEST ACCESS
+              Request Access
             </motion.button>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-nc-teal hover:text-nc-border-active transition-colors"
@@ -76,7 +86,6 @@ export const Navbar: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: isOpen ? 1 : 0, height: isOpen ? "auto" : 0 }}
@@ -96,9 +105,23 @@ export const Navbar: React.FC = () => {
             ))}
             <motion.button
               whileHover={{ scale: 1.02 }}
-              className="w-full mt-4 px-4 py-2 border-2 border-nc-teal text-nc-teal font-mono font-bold text-sm hover:bg-nc-teal hover:text-nc-base transition-all"
+              onClick={() => {
+                setIsOpen(false);
+                onLogin?.();
+              }}
+              className="w-full px-4 py-2 border border-nc-border text-nc-text-primary font-mono font-bold text-sm hover:border-nc-teal transition-all"
             >
-              REQUEST ACCESS
+              Login
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              onClick={() => {
+                setIsOpen(false);
+                onRequestAccess?.();
+              }}
+              className="w-full px-4 py-2 border-2 border-nc-teal text-nc-teal font-mono font-bold text-sm hover:bg-nc-teal hover:text-nc-base transition-all"
+            >
+              Request Access
             </motion.button>
           </div>
         </motion.div>
