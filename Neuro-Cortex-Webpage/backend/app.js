@@ -1,7 +1,7 @@
-const express = require("express");
-const cors = require("cors");
-const { createClient } = require("@supabase/supabase-js");
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import { createClient } from "@supabase/supabase-js";
+import "dotenv/config";
 
 const app = express();
 const port = process.env.PORT || 3000;
