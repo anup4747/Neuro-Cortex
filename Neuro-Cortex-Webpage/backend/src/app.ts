@@ -1,27 +1,21 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import {createClient} from "@supabase/supabase-js" 
+import { defineConfig, env } from "prisma/config";
 
 dotenv.config();
 
+export default defineConfig({
+  schema: "prisma/schema.prisma",
+  migrations: {
+    path: "prisma/migrations",
+  },
+  datasource: {
+    url: env("DATABASE_URL"),
+  },
+});
+
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-// DB setup
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
-}
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth:{
-    autoRefreshToken: true,
-    persistSession: true,
-  }
-});
 
 // Middleware
 app.use(express.json());
@@ -34,29 +28,6 @@ app.get('/', (req, res) => {
     status: "healthy",
     tech: "TypeScript + Express"
   });
-});
-
-app.get('/test-supabase', async (req, res) => {
-  try {
-    const { data, error } = await supabase
-      .from('pg_tables')
-      .select('tablename')
-      .limit(1);
-
-    if (error) throw error;
-
-    res.json({
-      success: true,
-      message: "Supabase connected successfully!",
-      tables: data
-    });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: "Supabase connection failed",
-      error: err.message
-    });
-  }
 });
 
 // Health Check

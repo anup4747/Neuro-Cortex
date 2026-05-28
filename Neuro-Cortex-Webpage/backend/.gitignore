@@ -37,3 +37,11 @@ dist-ssr
 # ignore env's
 *.env
 backend/*.env
+/generated/prisma
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
