@@ -45,13 +45,12 @@ The backend is built with Node.js, Express, and TypeScript. It handles API reque
 4. **Database Setup & Migrations (Prisma):**
    The backend uses Prisma as the ORM to interact with your Supabase database. Before starting the server, ensure your database schema is synced.
 
-   To apply migrations and update your database, run:
+   Pushing the schema your database, run:
 
    ```bash
-   npx prisma migrate dev
+   npx prisma db push
    ```
-   (Alternatively, if you're just pushing the schema without migration history, you can run `npx prisma db push`)
-
+   
    Then, generate the Prisma Client for your code:
 
    ```bash

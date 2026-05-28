@@ -45,3 +45,6 @@ backend/*.env
 # Build outputs
 dist/
 build/
+
+# Ignore generated Prisma client
+/prisma/generated
