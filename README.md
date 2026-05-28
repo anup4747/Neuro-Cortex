@@ -1,101 +1,112 @@
-# Neuro Cortex
+# Neuro-Cortex Webpage
 
-OPUS / Neuro Cortex — pentesting assistant and desktop client (OPUS Desktop) with a privacy-focused web portal.
+Neuro-Cortex is a simulated Cyber Security Threat Intelligence platform. This repository contains the source code for the **Neuro-Cortex Webpage**, which serves as the public-facing landing site, marketing portal, and access request gateway for the platform.
 
-This repository contains two primary workspaces:
-
-- `Neuro-Cortex-Desktop/` — Electron + backend for the desktop app
-- `Neuro-Cortex-Webpage/` — Web landing site and frontend for access/feedback flows
-
-## Quick overview
-
-- The web frontend provides marketing pages, feedback, and an access request modal. Authentication leads users to open the desktop client — the web portal intentionally avoids showing usage or sensitive user data.
-- The backend provides lightweight Express routes that forward to Supabase for persistence: request access, feedback, login, health.
-- Database schema (Postgres / Supabase) includes `users`, `access_requests`, `feedback`, `pentesting_chats`, and `pentesting_messages` with UUID primary keys and updated_at triggers.
-
-## File layout
-
-- Neuro-Cortex-Desktop/
-  - `backend/` — desktop backend (Electron server code)
-  - `electron/` — electron main process
-  - `frontend/` — desktop UI (React + Vite)
-
-- Neuro-Cortex-Webpage/
-  - `frontend/` — public web frontend (React + Vite)
-  - `backend/` — Express API that uses `@supabase/supabase-js`
-
-## Requirements
-
-- Node.js 18+ (recommended)
-- npm
-- Supabase project (for production persistence)
-
-## Backend (webpage) — setup
-
-1. Copy environment example and fill values:
-
-```bash
-cp Neuro-Cortex-Webpage/backend/.env.example Neuro-Cortex-Webpage/backend/.env
-# Fill SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY
-```
-
-2. Install and run:
-
-```bash
-cd Neuro-Cortex-Webpage/backend
-npm install
-npm run dev
-```
-
-API endpoints (Express -> Supabase):
-- `GET /api/status` — health
-- `POST /api/request-access` — create an access request
-- `POST /api/feedback` — submit feedback
-- `POST /api/login` — forward credentials to Supabase auth (sign-in)
-
-Note: The backend expects valid Supabase keys. Use the `SERVICE_ROLE` key only on trusted servers.
-
-## Frontend (webpage) — setup
-
-```bash
-cd Neuro-Cortex-Webpage/frontend
-npm install
-npm run dev
-# build for production
-npm run build
-```
-
-The web UI uses React 18 and components:
-- `src/components/AccessRequestModal.tsx` — modal form that POSTs to `/api/request-access`
-- `src/components/FeedbackSection.tsx` — POSTs to `/api/feedback`
-- `src/components/LoginPage.tsx` — POSTs to `/api/login`
-
-## Desktop workspace
-
-Open `Neuro-Cortex-Desktop/` to run/build the Electron desktop app. It uses a separate frontend/backend under the `Neuro-Cortex-Desktop` folder.
-
-## Database Schema
-
-The production Postgres schema (recommended to run in Supabase) includes tables:
-- `users` — application users
-- `access_requests` — incoming access requests
-- `feedback` — user feedback
-- `pentesting_chats` — pentest session metadata
-- `pentesting_messages` — chat messages
-
-Triggers keep `updated_at` current. Use the schema file in project notes or the SQL snippets included in the conversation history.
-
-## Security notes
-
-- The web portal intentionally minimizes collection/exposure of usage data. Keep the service-role key on the server only.
-- Add rate limiting, input validation, and bot protection (reCAPTCHA/hcaptcha) before public deployment.
-
-## Next steps (suggested)
-
-- Add server-side validation and rate-limiting middleware
-- Add admin UI to review `access_requests` and `feedback`
-- Add notification (email/Slack) on new access requests
+The project is split into a **Frontend** (React + Vite) and a **Backend** (Node.js + Express).
 
 ---
 
-If you want, I can: wire email notifications, add validation, or scaffold the admin interface to review requests. Which would you like next?
+## 🚀 Quick Start Guide
+
+To get the Neuro-Cortex webpage running locally on your machine, you'll need to set up and run both the backend and frontend development servers.
+
+### Prerequisites
+
+- **Node.js** (v18 or higher recommended)
+- **npm** (Node Package Manager)
+
+---
+
+## 🛠️ 1. Backend Setup
+
+The backend is built with Node.js, Express, and TypeScript. It handles API requests from the frontend (like access requests, feedback submissions, and login/signup flows).
+
+1. **Navigate to the backend directory:**
+   ```bash
+   cd Neuro-Cortex-Webpage/backend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables:**
+   Create a `.env` file in the `backend` directory (you can use `.env.example` as a reference if available). You will need to provide your database/Supabase credentials:
+   ```env
+   # Example .env configuration
+   PORT=3000
+   SUPABASE_URL=your_supabase_project_url
+   SUPABASE_ANON_KEY=your_supabase_anon_key
+   DATABASE_URL=supabase-db-url
+
+   ```
+
+4. **Database Setup & Migrations (Prisma):**
+   The backend uses Prisma as the ORM to interact with your Supabase database. Before starting the server, ensure your database schema is synced.
+
+   To apply migrations and update your database, run:
+
+   ```bash
+   npx prisma migrate dev
+   ```
+   (Alternatively, if you're just pushing the schema without migration history, you can run `npx prisma db push`)
+
+   Then, generate the Prisma Client for your code:
+
+   ```bash
+   npx prisma generate
+   ```
+
+5. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   *The backend should now be running on `http://localhost:3000`. It will automatically restart on file changes using Nodemon.*
+
+---
+
+## 🎨 2. Frontend Setup
+
+The frontend is a modern, responsive web application built using React, Vite, Tailwind CSS, and Framer Motion for sleek, futuristic animations.
+
+1. **Navigate to the frontend directory:**
+   Open a **new** terminal window and run:
+   ```bash
+   cd Neuro-Cortex-Webpage/frontend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   *The frontend should now be running! Vite will output the exact local URL in your terminal (typically `http://localhost:5173`).*
+
+---
+
+## 📂 Project Structure
+
+```text
+Neuro-Cortex-Webpage/
+├── backend/                  # Node.js + Express API
+│   ├── src/
+│   │   ├── app.ts            # Main application entry point
+│   │   └── ...               # API routes and controllers
+│   ├── package.json
+│   └── tsconfig.json
+│
+└── frontend/                 # React + Vite Client
+    ├── src/
+    │   ├── components/       # Reusable UI components (Navbar, CTA, Access Modal)
+    │   ├── pages/            # Page components (Login, Signup, Dashboard)
+    │   ├── App.tsx           # Main landing page layout
+    │   └── main.tsx          # React Router configuration & React entry point
+    ├── index.html
+    ├── tailwind.config.js    # Tailwind CSS configuration
+    └── package.json
+```

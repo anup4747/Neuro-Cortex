@@ -18,9 +18,6 @@ model User {
   fullName  String  @map("full_name")
   avatarUrl String? @map("avatar_url")
 
-  companyName String? @map("company_name")
-  jobTitle    String? @map("job_title")
-
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 

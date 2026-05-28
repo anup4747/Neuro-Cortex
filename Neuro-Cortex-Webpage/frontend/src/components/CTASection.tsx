@@ -29,7 +29,7 @@ export const CTASection: React.FC<CTASectionProps> = ({ onRequestAccess }) => {
           </h2>
 
           <p className="text-lg text-nc-text-muted font-body max-w-2xl mx-auto leading-relaxed">
-            OPUS Desktop is enterprise-focused and access is approved through
+            Neuro-Cortex  Desktop is enterprise-focused and access is approved through
             request. Click below to submit your access request in a secure
             overlay form.
           </p>

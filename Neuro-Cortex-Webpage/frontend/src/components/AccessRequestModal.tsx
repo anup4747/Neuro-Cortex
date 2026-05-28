@@ -184,7 +184,7 @@ export const AccessRequestModal: React.FC<AccessRequestModalProps> = ({
               onChange={(event) => setMessage(event.target.value)}
               required
               rows={5}
-              placeholder="Explain your use case and how your team will deploy OPUS Desktop."
+              placeholder="Explain your use case and how your team will deploy Neuro-Cortex Desktop."
               className="terminal-input w-full resize-none"
             />
           </label>

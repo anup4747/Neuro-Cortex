@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 interface NavbarProps {
   onLogin?: () => void;
@@ -25,11 +26,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onLogin, onRequestAccess }) => {
       initial={{ y: -60 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.4 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-nc-base/80 backdrop-blur-sm border-b border-nc-border"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? "bg-nc-base/80 backdrop-blur-sm border-b border-nc-border"
+        : "bg-transparent"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -62,14 +62,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onLogin, onRequestAccess }) => {
                 </motion.a>
               ))}
             </div>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={onLogin}
-              className="px-5 py-2 border border-nc-border text-nc-text-primary font-mono font-semibold text-sm hover:border-nc-teal transition-all duration-300"
-            >
-              Login
-            </motion.button>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Link 
+                to="/login"
+                className="px-5 py-2 border border-nc-border text-nc-text-primary font-mono font-semibold text-sm hover:border-nc-teal transition-all duration-300 inline-block"
+              >
+                Login
+              </Link>
+            </motion.div>
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -105,16 +105,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onLogin, onRequestAccess }) => {
                 {item}
               </a>
             ))}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              onClick={() => {
-                setIsOpen(false);
-                onLogin?.();
-              }}
-              className="w-full px-4 py-2 border border-nc-border text-nc-text-primary font-mono font-bold text-sm hover:border-nc-teal transition-all"
-            >
-              Login
-            </motion.button>
+            <motion.div whileHover={{ scale: 1.02 }}>
+              <Link
+                to="/login"
+                onClick={() => setIsOpen(false)}
+                className="w-full block text-center px-4 py-2 border border-nc-border text-nc-text-primary font-mono font-bold text-sm hover:border-nc-teal transition-all"
+              >
+                Login
+              </Link>
+            </motion.div>
             <motion.button
               whileHover={{ scale: 1.02 }}
               onClick={() => {

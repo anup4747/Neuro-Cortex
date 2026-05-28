@@ -1,6 +1,6 @@
-# Opus — Frontend (Portfolio Demo)
+# Neuro-Cortex — Frontend (Portfolio Demo)
 
-This `frontend` folder contains a Vite + React portfolio demo for *Opus* — a simulated Cyber Security Threat Intelligence UI. This is a portfolio/static demo only; it is not a working security product.
+This `frontend` folder contains a Vite + React portfolio demo for *Neuro-Cortex* — a simulated Cyber Security Threat Intelligence UI. This is a portfolio/static demo only; it is not a working security product.
 
 Run locally:
 
