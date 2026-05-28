@@ -2,11 +2,11 @@
   "name": "neuro-backend",
   "version": "1.0.0",
   "description": "Neuro-Cortex Backend Server",
-  "main": "dist/server.js",
+  "main": "dist/app.js",
   "type": "module",
   "scripts": {
-    "start": "node dist/server.js",
-    "dev": "nodemon --exec ts-node-esm app.ts",
+    "start": "node dist/app.js",
+    "dev": "nodemon --exec ts-node-esm src/app.ts",
     "build": "tsc",
     "clean": "rimraf dist"
   },
