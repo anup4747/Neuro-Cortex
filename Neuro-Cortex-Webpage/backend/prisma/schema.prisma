@@ -1,6 +1,4 @@
-// =============================================
-// Prisma Schema - Opus Desktop (Simplified)
-// =============================================
+// prisma/schema.prisma
 
 generator client {
   provider = "prisma-client"
@@ -9,12 +7,9 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  // url is removed from here (moved to prisma.config.ts)
 }
 
-// =============================================
-// USER MODEL (For Sign Up & Sign In)
-// =============================================
 model User {
   id             String  @id @default(uuid()) @db.Uuid
   supabaseUserId String? @unique @map("supabase_user_id") @db.Uuid
@@ -23,7 +18,6 @@ model User {
   fullName  String  @map("full_name")
   avatarUrl String? @map("avatar_url")
 
-  // Basic profile fields
   companyName String? @map("company_name")
   jobTitle    String? @map("job_title")
 
