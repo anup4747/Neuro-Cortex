@@ -41,7 +41,10 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section
+      id="hero"
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden pt-16"
+    >
       <ParticleCanvas />
 
       {/* Scanline overlay */}

@@ -6,7 +6,10 @@ interface CTASectionProps {
 
 export const CTASection: React.FC<CTASectionProps> = ({ onRequestAccess }) => {
   return (
-    <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-nc-base overflow-hidden">
+    <section
+      id="contact"
+      className="relative py-24 px-4 sm:px-6 lg:px-8 bg-nc-base overflow-hidden"
+    >
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ y: 30, opacity: 0 }}

@@ -7,7 +7,7 @@ interface NavbarProps {
   onRequestAccess?: () => void;
 }
 
-const navItems = ["Features", "Lab", "Threat Intel", "Architecture", "Contact"];
+const navItems = ["Features", "Lab", "Threat-Intel", "Architecture", "Contact"];
 
 export const Navbar: React.FC<NavbarProps> = ({ onLogin, onRequestAccess }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,18 +33,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onLogin, onRequestAccess }) => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 cursor-pointer group"
-          >
-            <img
-              src="/favicon.svg"
-              alt="Neuro Cortex logo"
-              className="w-8 h-8 rounded-full bg-nc-base p-1 group-hover:animate-pulse-glow"
-            />
-            <span className="font-mono font-bold text-nc-teal text-lg hidden sm:inline">
-              NEURO_CORTEX
-            </span>
+          <motion.div whileHover={{ scale: 1.05 }} className="">
+            <a
+              href="#hero"
+              className="flex items-center justify-center gap-2 cursor-pointer group mt-1"
+            >
+              <img
+                src="/favicon.svg"
+                alt="Neuro Cortex logo"
+                className="w-9 h-9 rounded-full bg-nc-base p-1 group-hover:animate-pulse-glow"
+              />
+              <span className="font-mono font-bold text-nc-teal text-xl hidden sm:inline">
+                NEURO_CORTEX
+              </span>
+            </a>
           </motion.div>
 
           <div className="hidden md:flex items-center gap-6">
